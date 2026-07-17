@@ -368,128 +368,120 @@
   </div>
 
   <script>
-    (function() {
-      // --- data validasi ---
-      const VALID_NAME = "Ratna Sari";
-      const VALID_BIRTH = "25-05-2007";
-
-      const nameInput = document.getElementById('nameInput');
-      const birthInput = document.getElementById('birthInput');
-      const verifyBtn = document.getElementById('verifyBtn');
-      const messageBox = document.getElementById('messageBox');
-      const videoWrapper = document.getElementById('videoWrapper');
-      const video = document.getElementById('romanticVideo');
-
-      // fungsi untuk reset pesan (opsional)
-      function setMessage(text, isSuccess = false) {
-        messageBox.textContent = text;
-        messageBox.classList.remove('success');
-        if (isSuccess) {
-          messageBox.classList.add('success');
-        }
-      }
-
-      // cek validasi
-      function verifyData() {
-        const name = nameInput.value.trim();
-        const birth = birthInput.value.trim();
-
-        // validasi ketat
-        if (name === VALID_NAME && birth === VALID_BIRTH) {
-          // sukses!
-          setMessage('✅ Selamat! Akses video dibuka. ❤️', true);
-          // tampilkan video
-          videoWrapper.classList.add('show');
-          // coba play otomatis (tapi banyak browser blokir, tetap tampilkan)
-          video.play().catch(() => {
-            // user harus klik play manual, tidak apa
-            console.log('autoplay dicegah, tapi video sudah tampil');
-          });
-          // disable tombol agar tidak spam
-          verifyBtn.disabled = true;
-          // ubah tombol sedikit
-          verifyBtn.innerHTML = '✨ Terbuka ✨';
-          // slight feedback
-        } else {
-          // gagal
-          let errorMsg = '❌ Nama atau tanggal lahir salah.';
-          if (name !== VALID_NAME && birth !== VALID_BIRTH) {
-            errorMsg = '❌ Nama dan tanggal lahir tidak cocok.';
-          } else if (name !== VALID_NAME) {
-            errorMsg = '❌ Nama harus "Ratna Sari"';
-          } else if (birth !== VALID_BIRTH) {
-            errorMsg = '❌ Tanggal lahir harus "25-05-2007"';
+      (function() {
+        // --- data validasi ---
+        const VALID_NAME = "Ratna Sari";
+        const VALID_BIRTH = "25-05-2007";
+  
+        const nameInput = document.getElementById('nameInput');
+        const birthInput = document.getElementById('birthInput');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const messageBox = document.getElementById('messageBox');
+        const videoWrapper = document.getElementById('videoWrapper');
+        const iframe = document.querySelector('#videoWrapper iframe'); // ambil iframe
+  
+        // fungsi untuk reset pesan
+        function setMessage(text, isSuccess = false) {
+          messageBox.textContent = text;
+          messageBox.classList.remove('success');
+          if (isSuccess) {
+            messageBox.classList.add('success');
           }
-          setMessage(errorMsg, false);
-          // sembunyikan video jika sedang tampil
+        }
+  
+        // cek validasi
+        function verifyData() {
+          const name = nameInput.value.trim();
+          const birth = birthInput.value.trim();
+  
+          if (name === VALID_NAME && birth === VALID_BIRTH) {
+            setMessage('✅ Selamat! Akses video dibuka. ❤️', true);
+            
+            // Tampilkan video wrapper
+            videoWrapper.classList.add('show');
+            
+            // 🔥 AUTOPLAY: reload iframe dengan parameter autoplay
+            if (iframe) {
+              const currentSrc = iframe.src;
+              // Cek apakah sudah ada autoplay, kalau belum tambahkan
+              if (!currentSrc.includes('autoplay=1')) {
+                iframe.src = currentSrc + (currentSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+              } else {
+                // Kalau sudah ada, reload aja
+                iframe.src = currentSrc;
+              }
+            }
+            
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '✨ Terbuka ✨';
+            
+          } else {
+            let errorMsg = '❌ Nama atau tanggal lahir salah.';
+            if (name !== VALID_NAME && birth !== VALID_BIRTH) {
+              errorMsg = '❌ Nama dan tanggal lahir tidak cocok.';
+            } else if (name !== VALID_NAME) {
+              errorMsg = '❌ Nama harus "Ratna Sari"';
+            } else if (birth !== VALID_BIRTH) {
+              errorMsg = '❌ Tanggal lahir harus "25-05-2007"';
+            }
+            setMessage(errorMsg, false);
+            videoWrapper.classList.remove('show');
+            
+            verifyBtn.disabled = false;
+            verifyBtn.innerHTML = '💖 Buka Video 💖';
+          }
+        }
+  
+        // event listener tombol
+        verifyBtn.addEventListener('click', verifyData);
+  
+        // enter pada input
+        nameInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            verifyBtn.click();
+          }
+        });
+        birthInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            verifyBtn.click();
+          }
+        });
+  
+        // Inisialisasi
+        setMessage('✨ isi data diri dengan benar ✨', false);
+        videoWrapper.classList.remove('show');
+  
+        // generate floating hearts
+        function createFloatingHearts() {
+          const container = document.getElementById('floatingHearts');
+          const symbols = ['❤️', '💖', '💕', '💗', '❤️‍🔥', '🌹', '💘'];
+          for (let i = 0; i < 18; i++) {
+            const el = document.createElement('div');
+            el.classList.add('heart-float');
+            el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            el.style.left = Math.random() * 100 + '%';
+            el.style.fontSize = (1.6 + Math.random() * 3.2) + 'rem';
+            el.style.animationDuration = (10 + Math.random() * 18) + 's';
+            el.style.animationDelay = (Math.random() * 20) + 's';
+            el.style.opacity = 0.15 + Math.random() * 0.25;
+            container.appendChild(el);
+          }
+        }
+        createFloatingHearts();
+  
+        // Reset saat load
+        window.addEventListener('load', function() {
+          nameInput.value = '';
+          birthInput.value = '';
           videoWrapper.classList.remove('show');
-          // pause video jika berjalan
-          video.pause();
-          // aktifkan tombol (jika sebelumnya disabled)
           verifyBtn.disabled = false;
           verifyBtn.innerHTML = '💖 Buka Video 💖';
-          // hapus sukses
-        }
-      }
-
-      // event listener tombol
-      verifyBtn.addEventListener('click', verifyData);
-
-      // tambahkan enter pada input
-      nameInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          verifyBtn.click();
-        }
-      });
-      birthInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          verifyBtn.click();
-        }
-      });
-
-      // Inisialisasi : pesan default, video sembunyi
-      setMessage('✨ isi data diri dengan benar ✨', false);
-      videoWrapper.classList.remove('show');
-      // jika video ingin direset
-      video.pause();
-
-      // generate floating hearts (romantis)
-      function createFloatingHearts() {
-        const container = document.getElementById('floatingHearts');
-        const symbols = ['❤️', '💖', '💕', '💗', '❤️‍🔥', '🌹', '💘'];
-        for (let i = 0; i < 18; i++) {
-          const el = document.createElement('div');
-          el.classList.add('heart-float');
-          el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-          el.style.left = Math.random() * 100 + '%';
-          el.style.fontSize = (1.6 + Math.random() * 3.2) + 'rem';
-          el.style.animationDuration = (10 + Math.random() * 18) + 's';
-          el.style.animationDelay = (Math.random() * 20) + 's';
-          el.style.opacity = 0.15 + Math.random() * 0.25;
-          container.appendChild(el);
-        }
-      }
-      createFloatingHearts();
-
-      // tambahan: jika user sudah benar, tetap bisa reload tapi jangan langsung buka (biarkan verifikasi ulang)
-      // reset jika halaman dimuat ulang
-      window.addEventListener('load', function() {
-        // kosongkan input (optional) biarkan placeholder
-        // tapi biarkan user mengetik ulang
-        // jika kita ingin mempertahankan state? tidak, biarkan fresh
-        // namun kita set default agar tidak bingung
-        nameInput.value = '';
-        birthInput.value = '';
-        videoWrapper.classList.remove('show');
-        verifyBtn.disabled = false;
-        verifyBtn.innerHTML = '💖 Buka Video 💖';
-        setMessage('✨ isi data diri dengan benar ✨', false);
-        video.pause();
-      });
-
-    })();
+          setMessage('✨ isi data diri dengan benar ✨', false);
+        });
+  
+      })();
   </script>
 </body>
 </html>
