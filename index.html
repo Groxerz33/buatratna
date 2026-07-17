@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌹 Untuk Ratna Sari</title>
+  <style>
+    /* RESET & GLOBAL */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #1a0101 0%, #3d0a0a 50%, #1f0303 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Poppins', cursive, sans-serif;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* floating hearts background */
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .heart-float {
+      position: absolute;
+      font-size: 2.2rem;
+      color: rgba(255, 80, 120, 0.2);
+      animation: floatUp 12s infinite linear;
+      user-select: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.2) rotate(0deg); opacity: 0.3; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-10vh) scale(1.1) rotate(720deg); opacity: 0; }
+    }
+
+    /* main card */
+    .card {
+      position: relative;
+      z-index: 10;
+      background: rgba(30, 5, 5, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 200, 200, 0.25);
+      border-radius: 60px 20px 60px 20px;
+      max-width: 700px;
+      width: 100%;
+      padding: 40px 35px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 2px rgba(255, 100, 130, 0.2);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    /* love title */
+    .title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(255, 80, 120, 0.3);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .title span {
+      display: inline-block;
+      animation: pulseLove 2s infinite;
+    }
+
+    @keyframes pulseLove {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .sub {
+      color: #f8d0d0;
+      font-size: 1.2rem;
+      letter-spacing: 4px;
+      border-top: 1px solid rgba(255, 150, 150, 0.3);
+      border-bottom: 1px solid rgba(255, 150, 150, 0.3);
+      display: inline-block;
+      padding: 10px 25px;
+      border-radius: 50px;
+      background: rgba(255, 80, 80, 0.05);
+      margin: 15px 0 20px;
+      backdrop-filter: blur(4px);
+      font-weight: 300;
+    }
+
+    .love-icon-big {
+      font-size: 4rem;
+      line-height: 1;
+      margin: 5px 0 15px;
+      animation: floatHeart 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-12px) scale(1.1); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* mini game / form verifikasi */
+    .verify-box {
+      background: rgba(40, 10, 10, 0.5);
+      border-radius: 40px 10px 40px 10px;
+      padding: 30px 20px;
+      margin: 25px 0 20px;
+      border: 1px solid #ff7b7b40;
+      box-shadow: inset 0 0 30px rgba(255, 50, 50, 0.1);
+    }
+
+    .verify-box h3 {
+      color: #ffbaba;
+      font-weight: 300;
+      letter-spacing: 2px;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .verify-box h3 i {
+      font-style: normal;
+      animation: pulseLove 1.8s infinite;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .input-field {
+      background: rgba(255, 240, 240, 0.05);
+      border: 1px solid #ff9a9e55;
+      border-radius: 60px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      color: #ffe3e3;
+      transition: 0.3s;
+      outline: none;
+      backdrop-filter: blur(2px);
+      font-weight: 300;
+    }
+
+    .input-field:focus {
+      border-color: #ff7b8b;
+      background: rgba(255, 200, 200, 0.1);
+      box-shadow: 0 0 25px #ff4d6d40;
+    }
+
+    .input-field::placeholder {
+      color: #b38888;
+      font-weight: 200;
+      letter-spacing: 1px;
+    }
+
+    .btn-love {
+      background: linear-gradient(145deg, #d43f4f, #a1222f);
+      border: none;
+      padding: 16px 20px;
+      border-radius: 80px;
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: 0.25s;
+      box-shadow: 0 8px 0 #4f141c, 0 12px 30px #ff3b5c40;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+      border: 1px solid #ffb0b0;
+    }
+
+    .btn-love:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 0 #4f141c, 0 20px 40px #ff3b5c70;
+      background: linear-gradient(145deg, #e84a5e, #b82a3a);
+    }
+
+    .btn-love:active {
+      transform: translateY(5px);
+      box-shadow: 0 3px 0 #4f141c;
+    }
+
+    .btn-love:disabled {
+      opacity: 0.5;
+      transform: translateY(4px);
+      box-shadow: 0 4px 0 #4f141c;
+      pointer-events: none;
+    }
+
+    /* video container (hidden by default) */
+    .video-wrapper {
+      margin-top: 30px;
+      border-radius: 40px 10px 40px 10px;
+      overflow: hidden;
+      box-shadow: 0 0 40px #ff4d6d60;
+      border: 2px solid #ff7b8b70;
+      transition: 0.4s ease;
+      display: none;
+      background: #0d0101;
+    }
+
+    .video-wrapper.show {
+      display: block;
+      animation: fadeGlow 1s ease;
+    }
+
+    @keyframes fadeGlow {
+      0% { opacity: 0; transform: scale(0.8); box-shadow: 0 0 0 #ff4d6d; }
+      100% { opacity: 1; transform: scale(1); box-shadow: 0 0 60px #ff4d6d; }
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+      border-radius: 40px 10px 40px 10px;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
+    .video-caption {
+      color: #ffc8c8;
+      padding: 15px 10px 5px;
+      background: #1f0505b0;
+      backdrop-filter: blur(4px);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* error / info message */
+    .msg {
+      margin-top: 15px;
+      font-size: 0.95rem;
+      color: #ff9e9e;
+      background: #3f0e0e60;
+      padding: 8px 15px;
+      border-radius: 40px;
+      display: inline-block;
+      backdrop-filter: blur(4px);
+      border: 1px solid #ff7b7b30;
+    }
+
+    .msg.success {
+      color: #a8f0b0;
+      border-color: #7bc77b70;
+    }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      .card { padding: 25px 18px; }
+      .title { font-size: 2.2rem; }
+      .input-field { font-size: 0.9rem; padding: 12px 18px; }
+    }
+
+    /* extra love decoration */
+    .rose {
+      position: absolute;
+      font-size: 3rem;
+      opacity: 0.1;
+      pointer-events: none;
+      transform: rotate(-15deg);
+    }
+
+    .rose-left {
+      left: -10px;
+      bottom: 10px;
+      font-size: 5rem;
+      opacity: 0.08;
+    }
+    .rose-right {
+      right: -10px;
+      top: 10px;
+      font-size: 5rem;
+      opacity: 0.08;
+      transform: rotate(25deg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- floating love background -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- main card -->
+  <div class="card">
+    <!-- decorative roses -->
+    <span class="rose rose-left">🌹</span>
+    <span class="rose rose-right">🌹</span>
+
+    <div class="love-icon-big">❤️‍🔥</div>
+    <h1 class="title">
+      <span>✨</span> Ratna <span>❤️</span> Sari <span>✨</span>
+    </h1>
+    <div class="sub">🌙 25 • 05 • 2007 🌙</div>
+
+    <p style="color: #f0c0c0; font-size: 1.1rem; letter-spacing: 1px; margin: 5px 0 10px; opacity: 0.8;">
+      <span>💗</span> hanya untukmu <span>💗</span>
+    </p>
+
+    <!-- MINI GAME : verifikasi data diri -->
+    <div class="verify-box" id="verifyBox">
+      <h3>
+        <i>🔐</i> Verifikasi Cinta <i>🔐</i>
+      </h3>
+      <div class="input-group">
+        <input type="text" class="input-field" id="nameInput" placeholder="Nama lengkap ..." value="">
+        <input type="text" class="input-field" id="birthInput" placeholder="Tanggal lahir (DD-MM-YYYY)" value="">
+        <button class="btn-love" id="verifyBtn">💖 Buka Video 💖</button>
+      </div>
+      <div id="messageBox" class="msg">✨ isi data diri dengan benar ✨</div>
+    </div>
+
+    <!-- Video (tersembunyi) -->
+    <div class="video-wrapper" id="videoWrapper">
+        <iframe 
+            src="https://drive.google.com/file/d/11P3p0c2tLhpusgZ9MxZOMgDKcxjFj_Z8/preview?autoplay=1" 
+            width="100%" 
+            height="400" 
+            allow="autoplay"
+            style="border: none; border-radius: 40px 10px 40px 10px;"
+        ></iframe>
+        <div class="video-caption">
+            <span>🌹</span> dari Aulia untuk Ratna Sari, Tercinta katanya <span>🌹</span>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; color: #b57575; font-size: 0.8rem; letter-spacing: 2px; border-top: 1px solid #ff7b7b20; padding-top: 15px;">
+      💕 dibuat dengan hati 💕
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // --- data validasi ---
+      const VALID_NAME = "Ratna Sari";
+      const VALID_BIRTH = "25-05-2007";
+
+      const nameInput = document.getElementById('nameInput');
+      const birthInput = document.getElementById('birthInput');
+      const verifyBtn = document.getElementById('verifyBtn');
+      const messageBox = document.getElementById('messageBox');
+      const videoWrapper = document.getElementById('videoWrapper');
+      const video = document.getElementById('romanticVideo');
+
+      // fungsi untuk reset pesan (opsional)
+      function setMessage(text, isSuccess = false) {
+        messageBox.textContent = text;
+        messageBox.classList.remove('success');
+        if (isSuccess) {
+          messageBox.classList.add('success');
+        }
+      }
+
+      // cek validasi
+      function verifyData() {
+        const name = nameInput.value.trim();
+        const birth = birthInput.value.trim();
+
+        // validasi ketat
+        if (name === VALID_NAME && birth === VALID_BIRTH) {
+          // sukses!
+          setMessage('✅ Selamat! Akses video dibuka. ❤️', true);
+          // tampilkan video
+          videoWrapper.classList.add('show');
+          // coba play otomatis (tapi banyak browser blokir, tetap tampilkan)
+          video.play().catch(() => {
+            // user harus klik play manual, tidak apa
+            console.log('autoplay dicegah, tapi video sudah tampil');
+          });
+          // disable tombol agar tidak spam
+          verifyBtn.disabled = true;
+          // ubah tombol sedikit
+          verifyBtn.innerHTML = '✨ Terbuka ✨';
+          // slight feedback
+        } else {
+          // gagal
+          let errorMsg = '❌ Nama atau tanggal lahir salah.';
+          if (name !== VALID_NAME && birth !== VALID_BIRTH) {
+            errorMsg = '❌ Nama dan tanggal lahir tidak cocok.';
+          } else if (name !== VALID_NAME) {
+            errorMsg = '❌ Nama harus "Ratna Sari"';
+          } else if (birth !== VALID_BIRTH) {
+            errorMsg = '❌ Tanggal lahir harus "25-05-2007"';
+          }
+          setMessage(errorMsg, false);
+          // sembunyikan video jika sedang tampil
+          videoWrapper.classList.remove('show');
+          // pause video jika berjalan
+          video.pause();
+          // aktifkan tombol (jika sebelumnya disabled)
+          verifyBtn.disabled = false;
+          verifyBtn.innerHTML = '💖 Buka Video 💖';
+          // hapus sukses
+        }
+      }
+
+      // event listener tombol
+      verifyBtn.addEventListener('click', verifyData);
+
+      // tambahkan enter pada input
+      nameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          verifyBtn.click();
+        }
+      });
+      birthInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          verifyBtn.click();
+        }
+      });
+
+      // Inisialisasi : pesan default, video sembunyi
+      setMessage('✨ isi data diri dengan benar ✨', false);
+      videoWrapper.classList.remove('show');
+      // jika video ingin direset
+      video.pause();
+
+      // generate floating hearts (romantis)
+      function createFloatingHearts() {
+        const container = document.getElementById('floatingHearts');
+        const symbols = ['❤️', '💖', '💕', '💗', '❤️‍🔥', '🌹', '💘'];
+        for (let i = 0; i < 18; i++) {
+          const el = document.createElement('div');
+          el.classList.add('heart-float');
+          el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+          el.style.left = Math.random() * 100 + '%';
+          el.style.fontSize = (1.6 + Math.random() * 3.2) + 'rem';
+          el.style.animationDuration = (10 + Math.random() * 18) + 's';
+          el.style.animationDelay = (Math.random() * 20) + 's';
+          el.style.opacity = 0.15 + Math.random() * 0.25;
+          container.appendChild(el);
+        }
+      }
+      createFloatingHearts();
+
+      // tambahan: jika user sudah benar, tetap bisa reload tapi jangan langsung buka (biarkan verifikasi ulang)
+      // reset jika halaman dimuat ulang
+      window.addEventListener('load', function() {
+        // kosongkan input (optional) biarkan placeholder
+        // tapi biarkan user mengetik ulang
+        // jika kita ingin mempertahankan state? tidak, biarkan fresh
+        // namun kita set default agar tidak bingung
+        nameInput.value = '';
+        birthInput.value = '';
+        videoWrapper.classList.remove('show');
+        verifyBtn.disabled = false;
+        verifyBtn.innerHTML = '💖 Buka Video 💖';
+        setMessage('✨ isi data diri dengan benar ✨', false);
+        video.pause();
+      });
+
+    })();
+  </script>
+</body>
+</html>
